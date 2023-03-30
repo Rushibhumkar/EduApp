@@ -6,7 +6,8 @@ import Ionicons from 'react-native-vector-icons/AntDesign';
 import Home from './components/Home'
 import About from './components/About'
 import Contact from './components/Contact'
-import Setting from './components/Setting'
+import UserData from './components/UserData'
+import CourseStack from './CourseStack';
 
 // const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,17 +23,19 @@ const Main = () => {
                         // focused
                         // ? 'home'
                         // : 'home';
-                    } else if (route.name === 'Setting') {
-                        iconName = 'setting';
-                    } else if (route.name === 'About') {
+                    } else if (route.name === 'Course') {
+                        iconName = 'book';
+                    } else if (route.name === 'UserData') {
                         iconName = 'user';
+                    } else if (route.name === 'About') {
+                        iconName = 'infocirlceo';
                     } else if (route.name === 'Contact') {
                         iconName = 'contacts';
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: 'tomato',
+                tabBarActiveTintColor: '#fff',
                 tabBarInactiveTintColor: 'black',
                 // tabBarBackgroundColor: 'pink',
                 // tabBarActiveBackgroundColor: 'yellow',
@@ -45,12 +48,18 @@ const Main = () => {
                 tabBarHideOnKeyboard: true,
 
             })}
+            initialRouteName="Home"
         >
             {/* to use tabbar badge in options user tabBarBadge:notifications.length */}
-            <Tab.Screen name="Home" component={Home} options={{ tabBarBadge: 3, tabBarBadgeStyle: { backgroundColor: 'white' } }} />
+            <Tab.Screen name="Home" component={Home} options={{ tabBarBadge: 3, tabBarBadgeStyle: { backgroundColor: '#646464' } }} />
+            <Tab.Screen name="Course" component={CourseStack}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Tab.Screen name="UserData" component={UserData} />
             <Tab.Screen name="About" component={About} />
             <Tab.Screen name="Contact" component={Contact} />
-            <Tab.Screen name="Setting" component={Setting} />
         </Tab.Navigator>
     )
 }

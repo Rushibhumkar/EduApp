@@ -1,58 +1,103 @@
 import { StyleSheet, Text, View, FlatList, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
-import Courses from '../api/Course'
+import Courses from '../api/CourseList'
 
-const Course = () => {
+const Course = ({ navigation }) => {
+    const courseCard = ({ item }) => {
+        return (
+            <View style={styles.mainContainer}>
+                <View style={styles.courseContainer}>
+                    <View>
+                        <Image
+                            style={styles.cardImage}
+                            source={require('../../assets/images/webdev.jpeg')}
+                            resizeMode="contain"
+                        />
+                    </View>
+
+                    <Text style={styles.mainHeader}>{item.title}</Text>
+
+                    <Text style={styles.description}>{item.description}</Text>
+
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity
+                            style={styles.buttonStyle}
+                            onPress={() =>
+                                navigation.navigate("CourseDetails", {
+                                    courseId: item.id,
+                                })
+                            }>
+                            <Text style={styles.buttonText}> course Details </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        );
+    };
 
     return (
-        <View>
-            <FlatList
-                data={Courses}
-                keyExtractor={(item) => { item.title }}
-                renderItem={({ item }) => {
-                    return (
-                        <ScrollView>
-                            <View style={styles.mainCont} key={item.title}>
-                                <View style={styles.CourseCont}>
-                                    <Text style={styles.titleText}>{item.title}</Text>
-                                    <View style={styles.imgCont}>
-                                        <Image style={styles.imgStyle} source={{ uri: item.imageUrl }} />
-                                    </View>
-                                </View>
-                                <TouchableOpacity></TouchableOpacity>
-                            </View>
-                        </ScrollView>
-                    )
-                }}
-            />
-        </View>
-    )
-}
-
-export default Course
+        <FlatList
+            keyExtractor={(item) => item.id}
+            data={Courses}
+            renderItem={courseCard}
+        />
+    );
+};
 
 const styles = StyleSheet.create({
-    mainCont: {
-        backgroundColor: 'yellow',
+    cardImage: {
+        width: "100%",
+        height: undefined,
+        aspectRatio: 1,
     },
-    CourseCont: {
-        marginHorizontal: 30,
-        marginVertical: 10,
-        backgroundColor: 'pink',
-        borderColor: 'black',
-        borderWidth: 1
+    mainContainer: {
+        paddingHorizontal: 20,
     },
-    titleText: {
-        textAlign: 'center',
-        color: '#000',
+    courseContainer: {
+        padding: 30,
+        backgroundColor: "rgba(255, 255, 255, 0.90)",
+        textAlign: "center",
+        borderRadius: 5,
+        shadowColor: "grey",
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
+        elevation: 8,
+        marginVertical: 30,
+    },
+    mainHeader: {
+        fontSize: 22,
+        color: "#344055",
+        textTransform: "uppercase",
+        paddingBottom: 15,
+        textAlign: "center",
+    },
+    description: {
+        textAlign: "left",
+        paddingBottom: 15,
+        lineHeight: 20,
+        fontSize: 16,
+        color: "#7d7d7d",
+    },
+    buttonContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    buttonStyle: {
+        backgroundColor: "#00A659",
+        borderRadius: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    buttonText: {
         fontSize: 20,
-        fontWeight: 'bold',
+        color: "#eee",
+        textTransform: "capitalize",
     },
-    imgCont: {
-        alignSelf: 'center',
-        backgroundColor: '#E6E6E6',
-        width: 160,
-        height: 120,
-        marginVertical: 10,
-    }
-})
+});
+
+export default Course;
