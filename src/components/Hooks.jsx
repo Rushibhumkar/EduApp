@@ -274,11 +274,19 @@ import EmailIcon from 'react-native-vector-icons/Fontisto'
 //     )
 // }
 
+// const Hooks = () => {
+//     useEffect(() => {
+//         console.log('Hello Useeffect')
+//     }, [])
+//     // console.log("Hello Outside")
+//     return (
+//         <View style={{ flex: 1, backgroundColor: '#fff' }}>
+//             <Text style={{ color: '#000' }}>Hello!</Text>
+//         </View>
+//     )
+// }
+
 const Hooks = () => {
-    useEffect(() => {
-        console.log('Hello Useeffect')
-    }, [])
-    // console.log("Hello Outside")
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <Text style={{ color: '#000' }}>Hello!</Text>
