@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import LoadingScreen from './LoadingScreen'
+import LoadingScreen from '../api/LoadingScreen'
 
 const UseEffectApi = () => {
 
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
+
     const getUsers = async () => {
         try {
+            setLoading(false)
             const response = await fetch('https://api.github.com/users')
             // console.log(response)
             setUsers(await response.json())
@@ -15,7 +17,6 @@ const UseEffectApi = () => {
         catch (error) {
             console.log(error)
         }
-
     }
     useEffect(() => {
         getUsers();
@@ -25,7 +26,7 @@ const UseEffectApi = () => {
         return <LoadingScreen />
     }
     return (
-        <View style={{ backgroundColor: 'grey', margin: 10, }}>
+        <View style={{ backgroundColor: 'grey', margin: 10 }}>
             {/* <Text style={{ color: '#000', textAlign: 'center' }}>EffectApi</Text> */}
             {
                 users.map((item) => {
